@@ -11,7 +11,6 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import java.io.StringReader;
@@ -42,12 +41,10 @@ public class CoronaVirusDataService {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvReader);
             for (CSVRecord record : records) {
                 String state = record.get("Province/State");
-                log.info(state);
                 LocationStats locStats = new LocationStats();
                 locStats.setState(record.get("Province/State"));
                 locStats.setCountry(record.get("Country/Region"));
                 locStats.setLatestTotal(Integer.parseInt(record.get(record.size() - 1)));
-                log.info("location stats=========>"+locStats);
                 newStats.add(locStats);
                 this.locationStats = newStats;
             }
