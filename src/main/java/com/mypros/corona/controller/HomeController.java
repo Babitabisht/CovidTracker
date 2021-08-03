@@ -18,12 +18,10 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("locationStats",dataService.getLocationStats() );
+         model.addAttribute("locationStats",dataService.getLocationStats() );
          List<LocationStats> locationStats = dataService.getLocationStats();
          int sum = locationStats.stream().mapToInt(stat-> stat.getLatestTotal()).sum();
          model.addAttribute("totalCases",sum);
-
-       
-        return "home";
+         return "home";
     }
 }
